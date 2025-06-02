@@ -62,8 +62,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 1000;
             padding: 1rem 0;
@@ -71,7 +71,8 @@
         }
 
         nav.scrolled {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -91,6 +92,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
         }
 
         .nav-links {
@@ -127,6 +134,96 @@
             width: 100%;
         }
 
+        .download-cv {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+
+        .download-cv:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px) scale(1.1);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--bg-dark);
+        }
+
+        .download-cv:hover .tooltip {
+            opacity: 1;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 2rem;
+        }
+
         .language-toggle {
             display: flex;
             background: var(--bg-light);
@@ -158,14 +255,41 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%);
             color: white;
         }
 
         .hero-content {
-            max-width: 850px;
+            max-width: 800px;
             padding: 2rem;
             animation: fadeInUp 1s ease;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-image-fallback {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
         }
 
         .hero h1 {
@@ -247,6 +371,7 @@
             margin: 0 auto;
             padding-left: 2rem;
             padding-right: 2rem;
+            position: relative;
         }
 
         .section-title {
@@ -258,13 +383,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(10px);
+            background-color: rgba(248, 250, 252, 0.8);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .about-text {
+            background: rgba(248, 250, 252, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
             margin-top: 3rem;
+            justify-content: center;
         }
 
         .skill-category {
@@ -275,6 +414,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 320px;
+            flex: 0 0 auto;
         }
 
         .skill-category::before {
@@ -296,12 +437,60 @@
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .skill-tag {
+            background: var(--bg-light);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .tech-icon {
+            width: 16px;
+            height: 16px;
+            font-size: 0.8rem;
+        }
+
+        .tech-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .skill-tag {
@@ -418,6 +607,7 @@
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .form-group input:focus,
@@ -425,6 +615,26 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         footer {
@@ -464,6 +674,10 @@
                 display: none;
             }
             
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
             .timeline-line {
                 left: 2rem;
             }
@@ -480,6 +694,10 @@
             
             .experience-dot {
                 left: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -609,13 +827,41 @@
 
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">KJ</div>
+            <div class="logo" id="logoHome">KJ</div>
             <ul class="nav-links">
                 <li><a href="#home" data-en="Home" data-hu="Kezdőlap">Home</a></li>
                 <li><a href="#about" data-en="About" data-hu="Rólam">About</a></li>
                 <li><a href="#skills" data-en="Skills" data-hu="Készségek">Skills</a></li>
                 <li><a href="#experience" data-en="Experience" data-hu="Tapasztalat">Experience</a></li>
                 <li><a href="#contact" data-en="Contact" data-hu="Kapcsolat">Contact</a></li>
+                <li><a href="Kristof_Juhasz_CV.pdf" download class="download-cv">
+                    📄
+                    <span class="tooltip" data-en="Download CV" data-hu="CV Letöltés">Download CV</span>
+                </a></li>
+                <li>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="hu">HU</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="nav-links">
+                <li><a href="#home" data-en="Home" data-hu="Kezdőlap">Home</a></li>
+                <li><a href="#about" data-en="About" data-hu="Rólam">About</a></li>
+                <li><a href="#skills" data-en="Skills" data-hu="Készségek">Skills</a></li>
+                <li><a href="#experience" data-en="Experience" data-hu="Tapasztalat">Experience</a></li>
+                <li><a href="#contact" data-en="Contact" data-hu="Kapcsolat">Contact</a></li>
+                <li><a href="Kristof_Juhasz_CV.pdf" download class="download-cv">
+                    📄
+                    <span class="tooltip" data-en="Download CV" data-hu="CV Letöltés">Download CV</span>
+                </a></li>
                 <li>
                     <div class="language-toggle">
                         <button class="lang-btn active" data-lang="en">EN</button>
@@ -628,6 +874,10 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
+            <div class="profile-image">
+                <img src="images/profile.jpg" alt="Kristóf Juhász" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="profile-image-fallback" style="display: none;">KJ</span>
+            </div>
             <h1 data-en="Kristóf Juhász" data-hu="Juhász Kristóf">Kristóf Juhász</h1>
             <p class="subtitle" data-en="Full Stack Software Engineer" data-hu="Full Stack Szoftvermérnök">Full Stack Software Engineer</p>
             <p class="description" 
@@ -644,7 +894,7 @@
 
     <section id="about" class="section">
         <h2 class="section-title animate-on-scroll" data-en="About Me" data-hu="Rólam">About Me</h2>
-        <div class="animate-on-scroll">
+        <div class="about-text animate-on-scroll">
             <p class="en-content" style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
                 I'm based in Mátészalka, Hungary, and have been working in software development since 2018. 
                 I graduated with a Computer Science BSc from the University of Nyíregyháza in 2023. 
@@ -666,41 +916,121 @@
             <div class="skill-category animate-on-scroll">
                 <h3 data-en="Backend Development" data-hu="Backend Fejlesztés">Backend Development</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">Spring Boot</span>
-                    <span class="skill-tag">C#</span>
-                    <span class="skill-tag">REST API</span>
-                    <span class="skill-tag">SOAP</span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/java.png" alt="Java" onerror="this.parentElement.innerHTML='☕'">
+                        </span>Java
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/spring.png" alt="Spring" onerror="this.parentElement.innerHTML='🍃'">
+                        </span>Spring Boot
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/csharp.png" alt="C#" onerror="this.parentElement.innerHTML='🔷'">
+                        </span>C#
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/rest.png" alt="REST" onerror="this.parentElement.innerHTML='🔗'">
+                        </span>REST API
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/soap.png" alt="SOAP" onerror="this.parentElement.innerHTML='📡'">
+                        </span>SOAP
+                    </span>
                 </div>
             </div>
             <div class="skill-category animate-on-scroll">
                 <h3 data-en="Frontend Development" data-hu="Frontend Fejlesztés">Frontend Development</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Angular</span>
-                    <span class="skill-tag">HTML5</span>
-                    <span class="skill-tag">CSS3</span>
-                    <span class="skill-tag">Flutter</span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/typescript.png" alt="TypeScript" onerror="this.parentElement.innerHTML='📘'">
+                        </span>TypeScript
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/angular.png" alt="Angular" onerror="this.parentElement.innerHTML='🅰️'">
+                        </span>Angular
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/html5.png" alt="HTML5" onerror="this.parentElement.innerHTML='🌐'">
+                        </span>HTML5
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/css3.png" alt="CSS3" onerror="this.parentElement.innerHTML='🎨'">
+                        </span>CSS3
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/flutter.png" alt="Flutter" onerror="this.parentElement.innerHTML='📱'">
+                        </span>Flutter
+                    </span>
                 </div>
             </div>
             <div class="skill-category animate-on-scroll">
                 <h3 data-en="Databases & DevOps" data-hu="Adatbázisok & DevOps">Databases & DevOps</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">PostgreSQL</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Kubernetes</span>
-                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/postgresql.png" alt="PostgreSQL" onerror="this.parentElement.innerHTML='🐘'">
+                        </span>PostgreSQL
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/sql.png" alt="SQL" onerror="this.parentElement.innerHTML='💾'">
+                        </span>SQL
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/docker.png" alt="Docker" onerror="this.parentElement.innerHTML='🐳'">
+                        </span>Docker
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/kubernetes.png" alt="Kubernetes" onerror="this.parentElement.innerHTML='☸️'">
+                        </span>Kubernetes
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/git.png" alt="Git" onerror="this.parentElement.innerHTML='📦'">
+                        </span>Git
+                    </span>
                 </div>
             </div>
             <div class="skill-category animate-on-scroll">
                 <h3 data-en="Other Technologies" data-hu="Egyéb Technológiák">Other Technologies</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Unity</span>
-                    <span class="skill-tag">Bash</span>
-                    <span class="skill-tag">Test Automation</span>
-                    <span class="skill-tag">Jira</span>
-                    <span class="skill-tag">GitLab</span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/unity.png" alt="Unity" onerror="this.parentElement.innerHTML='🎮'">
+                        </span>Unity
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/bash.png" alt="Bash" onerror="this.parentElement.innerHTML='💻'">
+                        </span>Bash
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/testing.png" alt="Testing" onerror="this.parentElement.innerHTML='🧪'">
+                        </span>Test Automation
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/jira.png" alt="Jira" onerror="this.parentElement.innerHTML='📋'">
+                        </span>Jira
+                    </span>
+                    <span class="skill-tag">
+                        <span class="tech-icon">
+                            <img src="images/icons/gitlab.png" alt="GitLab" onerror="this.parentElement.innerHTML='🦊'">
+                        </span>GitLab
+                    </span>
                 </div>
             </div>
         </div>
@@ -772,6 +1102,7 @@
         </div>
     </section>
 
+<!--    TODO not doing anything right now-->
     <section id="contact" class="section">
         <h2 class="section-title animate-on-scroll" data-en="Get In Touch" data-hu="Kapcsolatfelvétel">Get In Touch</h2>
         <div class="contact-form animate-on-scroll">
@@ -788,7 +1119,7 @@
                     <label for="message" data-en="Message" data-hu="Üzenet">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;" data-en="Send Message" data-hu="Üzenet Küldése">Send Message</button>
+                <button type="submit" class="btn-submit" data-en="Send Message" data-hu="Üzenet Küldése">Send Message</button>
             </form>
         </div>
     </section>
@@ -832,6 +1163,11 @@
                 } else {
                     element.textContent = element.dataset[lang] || element.textContent;
                 }
+            });
+            
+            // Update tooltips
+            document.querySelectorAll('.tooltip[data-en][data-hu]').forEach(tooltip => {
+                tooltip.textContent = tooltip.dataset[lang];
             });
             
             // Show/hide language-specific content
@@ -879,8 +1215,8 @@
                     color: 0x2563eb, // Primary blue
                     color2: 0x3b82f6, // Secondary blue
                     backgroundColor: 0xf8fafc, // Light background
-                    size: 6, // Original size
-                    spacing: 20.00, // Original spacing
+                    size: 6.60, // Original size
+                    spacing: 25.00, // Original spacing
                     showLines: false // No connecting lines
                 });
                 console.log('Vanta.js dots initialized successfully');
@@ -898,7 +1234,25 @@
             }
         }
         
-        // Initialize when page loads
+        // Logo home functionality
+        document.getElementById('logoHome').addEventListener('click', () => {
+            document.querySelector('#home').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileToggle').addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
         window.addEventListener('load', () => {
             setTimeout(tryInitVanta, 100);
         });
